@@ -1,8 +1,8 @@
 # Contains API endpoints, versioning, and dependency injection.
 
 from fastapi import APIRouter
-from schemas.user import UserCreate,UserResponse
-from services.user_service import create_user
+from schemas import UserCreate,UserResponse
+from services import create_user
 router = APIRouter()
 
 @router.post("/", response_model=UserResponse)
