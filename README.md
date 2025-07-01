@@ -35,3 +35,59 @@ Lưu ý: Python 2 đã ngừng hỗ trợ chính thức từ tháng 1 năm 2020,
 - asyncpg: Thư viện kết nối PostgreSQL nhanh và hiệu quả, sử dụng async/await để tối ưu hóa kết nối.
 
 - databases: Là thư viện hỗ trợ kết nối và truy vấn cơ sở dữ liệu một cách bất đồng bộ (asynchronous), giúp tăng hiệu suất khi làm việc với các cơ sở dữ liệu như PostgreSQL.
+
+<!-- RECOMMEND PROJECT STRUCTURE -->
+
+project_name/
+│
+├── app/
+│ ├── **init**.py
+│ ├── main.py
+│ ├── api/
+│ │ ├── **init**.py
+│ │ ├── v1/
+│ │ │ ├── **init**.py
+│ │ │ ├── endpoints/
+│ │ │ │ ├── **init**.py
+│ │ │ │ ├── user.py
+│ │ │ │ ├── auth.py
+│ │ │ │ ├── item.py
+│ │ ├── dependencies/
+│ │ ├── **init**.py
+│ │ ├── database.py
+│ │ ├── auth.py
+│ │
+│ ├── core/
+│ │ ├── **init**.py
+│ │ ├── config.py
+│ │ ├── security.py
+│ │
+│ ├── db/
+│ │ ├── **init**.py
+│ │ ├── base.py
+│ │ ├── models/
+│ │ │ ├── **init**.py
+│ │ │ ├── user.py
+│ │ │ ├── item.py
+│ │ ├── session.py
+│ │
+│ ├── schemas/
+│ │ ├── **init**.py
+│ │ ├── user.py
+│ │ ├── item.py
+│ │
+│ ├── services/
+│ │ ├── **init**.py
+│ │ ├── user_service.py
+│ │ ├── item_service.py
+│ │
+│ ├── tests/
+│ ├── **init**.py
+│ ├── test_user.py
+│ ├── test_item.py
+│
+├── Dockerfile
+├── docker-compose.yml
+├── .env
+├── requirements.txt
+├── README.md
