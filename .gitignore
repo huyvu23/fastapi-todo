@@ -1,0 +1,61 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.swp
+
+# Python specific
+*.log
+*.sqlite3
+*.db
+*.pkl
+*.pyc
+
+# Environment files
+.env
+.env.*
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Dependency files (optional)
+poetry.lock
+
+# alembic
+alembic.ini
+migrations/
+
+# mypy / pyright / pytest / coverage
+.mypy_cache/
+.pytest_cache/
+coverage.xml
+htmlcov/
+
+# Docker
+*.pid
+*.pid.lock
+*.sock
+docker-compose.override.yml
+
+# Build / dist
+build/
+dist/
+*.egg-info/
+
+# PyInstaller
+*.spec
+
+# Logs
+logs/
+*.log
