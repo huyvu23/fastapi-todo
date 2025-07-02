@@ -6,4 +6,4 @@ class TodoCreate(BaseModel):
 class TodoResponse(BaseModel):
     id:int
     title:str
-    completed:bool
+    completed:bool = False

@@ -7,7 +7,5 @@ router = APIRouter()
 
 @router.post("/", response_model=UserResponse)
 def register_user(user: UserCreate):
-    try:
-        return create_user(user)
-    except Exception as e:
-        print("Lỗi khác:", e)
+    return create_user(user)
+

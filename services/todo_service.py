@@ -4,7 +4,6 @@ def create_new_todo(value):
     new_todo = {
         "id":len(array_todos)+1,
         "title":value.title,
-        "completed":False
     }
     array_todos.append(new_todo)
     return new_todo
