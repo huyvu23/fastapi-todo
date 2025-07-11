@@ -36,6 +36,13 @@ Lưu ý: Python 2 đã ngừng hỗ trợ chính thức từ tháng 1 năm 2020,
 
 - databases: Là thư viện hỗ trợ kết nối và truy vấn cơ sở dữ liệu một cách bất đồng bộ (asynchronous), giúp tăng hiệu suất khi làm việc với các cơ sở dữ liệu như PostgreSQL.
 
+## Tại sao lại cần một session mỗi lần thao tác với DB
+
+- Isolation : Đảm bảo mỗi request là độc lập
+- Connection Safety : Không giữ kết nối mở gây tốn tài nguyên
+- Transaction Control : Hỗ trợ rollback/Commit đúng cách
+- Best Practice : Theo đúng kiến trúc RESTful và Fast API chuẩn
+
 ## CONNECT DB
 
 - DATABASE_URI = 'postgresql://postgres:<password>@localhost/<name_of_the_datbase>'
