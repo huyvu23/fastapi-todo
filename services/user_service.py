@@ -1,10 +1,10 @@
 
 from models.user import User
 from sqlalchemy.orm import Session
-from schemas import UserCreate
+from schemas import UserCreate,UserLogin,UserRead
 from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException, status
-from core import hash_password
+from core import hash_password,verify_password
 
 # Encapsulates business logic and interacts with the database.
 def create_user(user_data:UserCreate,db:Session):
@@ -37,7 +37,7 @@ def create_user(user_data:UserCreate,db:Session):
             detail="Internal server error"
         )
 
-def get_users(db:Session):
+def get_users(db:Session) -> list[UserCreate]:
     try:
         users = db.query(User).all()
         if len(users):
@@ -45,3 +45,17 @@ def get_users(db:Session):
         return []
     except Exception as e:
         print('e:',e)
+
+def verify_user_login(db: Session, login_data: UserLogin) -> UserRead | None:
+    try:
+        user = db.query(User).filter(User.email == login_data.email).first()
+        if not user:
+            raise HTTPException(status_code=400, detail="Invalid email or password")
+
+        if not verify_password(login_data.password, user.password):
+            raise HTTPException(status_code=400, detail="Invalid email or password")
+        return user
+    except Exception as e:
+        print('e:',e)
+
+    

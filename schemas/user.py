@@ -2,6 +2,10 @@
 from pydantic import BaseModel
 from datetime import datetime
 
+class UserLogin(BaseModel):
+    email:str
+    password: str
+
 # Schema để đọc dữ liệu người dùng (ví dụ: trả về từ API)
 class UserBase(BaseModel):
     username: str
