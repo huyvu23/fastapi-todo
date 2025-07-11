@@ -36,7 +36,12 @@ Lưu ý: Python 2 đã ngừng hỗ trợ chính thức từ tháng 1 năm 2020,
 
 - databases: Là thư viện hỗ trợ kết nối và truy vấn cơ sở dữ liệu một cách bất đồng bộ (asynchronous), giúp tăng hiệu suất khi làm việc với các cơ sở dữ liệu như PostgreSQL.
 
+## CONNECT DB
+
+- DATABASE_URI = 'postgresql://postgres:<password>@localhost/<name_of_the_datbase>'
+
 <!-- RECOMMEND PROJECT STRUCTURE -->
+<!-- https://www.linkedin.com/pulse/fastapi-project-structure-best-practices-manikandan-parasuraman-fx4pc/ -->
 
 project_name/
 │
