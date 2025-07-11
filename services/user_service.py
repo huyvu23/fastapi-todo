@@ -4,11 +4,13 @@ from sqlalchemy.orm import Session
 from schemas import UserCreate
 from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException, status
+from core import hash_password
 
 # Encapsulates business logic and interacts with the database.
 def create_user(user_data:UserCreate,db:Session):
     try:
-        new_user = User(username=user_data.username,email=user_data.email,password=user_data.password)
+        value_hash_password = hash_password(user_data.password)
+        new_user = User(username=user_data.username,email=user_data.email,password=value_hash_password)
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
