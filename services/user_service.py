@@ -37,6 +37,21 @@ def create_user(user_data:UserCreate,db:Session):
             detail="Internal server error"
         )
 
+def get_users_according_id(id:int,db:Session) -> UserRead:
+    user = db.query(User).filter(User.id == id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+def delete_user(id:int,db:Session):
+    user = db.query(User).filter(User.id == id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    db.delete(user)
+    db.commit()
+    return
+
 def get_users(db:Session) -> list[UserCreate]:
     try:
         users = db.query(User).all()
