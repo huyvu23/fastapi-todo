@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from datetime import datetime
 
 class UserLogin(BaseModel):
-    email:str
+    username:str
     password: str
 
 # Schema để đọc dữ liệu người dùng (ví dụ: trả về từ API)
@@ -14,6 +14,9 @@ class UserBase(BaseModel):
 # Schema để tạo người dùng mới (POST request)
 class UserCreate(UserBase):
     password: str
+
+class UserUpdate(BaseModel):
+    email:str
 
 # Schema để trả về dữ liệu người dùng (GET response)
 class UserRead(UserBase):

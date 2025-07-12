@@ -1,2 +1,2 @@
 from .todo_service import create_new_todo,get_all_todo
-from .user_service import delete_user,get_users_according_id,create_user,get_users,verify_user_login
+from .user_service import delete_user,get_users_according_id,create_user,get_users,verify_user_login,edit_user

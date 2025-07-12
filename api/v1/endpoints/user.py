@@ -1,8 +1,8 @@
 # Contains API endpoints, versioning, and dependency injection.
 
 from fastapi import APIRouter,Depends
-from schemas import UserRead,UserCreate
-from services import delete_user,get_users,create_user,get_users_according_id
+from schemas import UserRead,UserCreate,UserUpdate
+from services import edit_user,delete_user,get_users,create_user,get_users_according_id
 from db.deps import get_db
 from sqlalchemy.orm import Session
 
@@ -23,3 +23,7 @@ def get_user_by_id(id:int,db: Session = Depends(get_db)):
 @router.delete("/{id}", status_code=204)
 def delete_user_by_id(id:int,db: Session = Depends(get_db)):
     return delete_user(id,db)
+
+@router.put("/{user_id}", response_model=UserRead)
+def update_user(user_id: int, update_data: UserUpdate, db: Session = Depends(get_db)):
+    return edit_user(user_id,update_data,db)

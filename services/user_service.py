@@ -1,7 +1,7 @@
 
 from models.user import User
 from sqlalchemy.orm import Session
-from schemas import UserCreate,UserLogin,UserRead
+from schemas import UserCreate,UserLogin,UserRead,UserUpdate
 from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException, status
 from core import hash_password,verify_password
@@ -52,6 +52,25 @@ def delete_user(id:int,db:Session):
     db.commit()
     return
 
+def edit_user(user_id: int, update_data: UserUpdate, db: Session) -> UserCreate:
+    user = db.query(User).filter(User.id == user_id).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Check and update fields
+    if update_data.email is not None:
+        user.email = update_data.email
+
+    try:
+        db.commit()
+        db.refresh(user)
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=400, detail=str(e.orig) if hasattr(e, 'orig') else "Update failed")
+
+    return user
+
 def get_users(db:Session) -> list[UserCreate]:
     try:
         users = db.query(User).all()
@@ -63,12 +82,12 @@ def get_users(db:Session) -> list[UserCreate]:
 
 def verify_user_login(db: Session, login_data: UserLogin) -> UserRead | None:
     try:
-        user = db.query(User).filter(User.email == login_data.email).first()
+        user = db.query(User).filter(User.username == login_data.username).first()
         if not user:
             raise HTTPException(status_code=400, detail="Invalid email or password")
 
         if not verify_password(login_data.password, user.password):
-            raise HTTPException(status_code=400, detail="Invalid email or password")
+            raise HTTPException(status_code=400, detail="Invalid password")
         return user
     except Exception as e:
         print('e:',e)
