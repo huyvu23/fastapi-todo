@@ -1,10 +1,10 @@
 
 from models.user import User
 from sqlalchemy.orm import Session
-from schemas import UserCreate,UserLogin,UserRead,UserUpdate
+from schemas import UserCreate,UserLogin,UserRead,UserUpdate,InformationUserLogin
 from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException, status
-from core import hash_password,verify_password
+from core import hash_password,verify_password,create_access_token
 
 # Encapsulates business logic and interacts with the database.
 def create_user(user_data:UserCreate,db:Session):
@@ -80,15 +80,28 @@ def get_users(db:Session) -> list[UserCreate]:
     except Exception as e:
         print('e:',e)
 
-def verify_user_login(db: Session, login_data: UserLogin) -> UserRead | None:
+def verify_user_login(db: Session, login_data: UserLogin) -> InformationUserLogin | None:
     try:
         user = db.query(User).filter(User.username == login_data.username).first()
         if not user:
-            raise HTTPException(status_code=400, detail="Invalid email or password")
+            raise HTTPException(status_code=400, detail="Invalid username or password")
 
         if not verify_password(login_data.password, user.password):
             raise HTTPException(status_code=400, detail="Invalid password")
-        return user
+        
+        # user.__dict__: Lấy toàn bộ field từ đối tượng SQLAlchemy.
+        # .copy(): Tạo bản sao, tránh thay đổi gốc.
+        user_dict = user.__dict__.copy()
+        user_dict.pop("_sa_instance_state", None)  # Bỏ field của SQLAlchemy không cần thiết
+
+        access_token = create_access_token(dict(
+            sub=user.username,
+            email=user.email
+        ))
+
+        # Add token
+        user_dict["access_token"] = access_token
+        return user_dict
     except Exception as e:
         print('e:',e)
 

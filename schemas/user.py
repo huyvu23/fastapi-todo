@@ -25,3 +25,6 @@ class UserRead(UserBase):
 
     class Config:
         from_attributes = True  # Cho phép đọc dữ liệu từ SQLAlchemy model
+
+class InformationUserLogin(UserRead):
+    access_token:str
