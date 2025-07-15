@@ -2,6 +2,8 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta,timezone
 import jwt
 import os
+from fastapi import HTTPException, status
+from jwt import ExpiredSignatureError, InvalidTokenError
 
 ALGORITHM = "HS256"
 SECRET_KEY = os.getenv("SECRET_KEY")
@@ -19,7 +21,15 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-
+def decode_access_token(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload
+    except ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token has expired")
+    except InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)
 
