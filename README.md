@@ -28,6 +28,16 @@ Lưu ý: Python 2 đã ngừng hỗ trợ chính thức từ tháng 1 năm 2020,
 
 - uvicorn main:app --reload
 
+## Lệnh chạy migration
+
+-> Câu lệnh dưới có tác dụng Tạo file migration tự động
+
+- alembic revision --autogenerate -m "change config column description"
+
+-> Câu lệnh dưới có tác dụng Áp dụng migration vào DB
+
+- alembic upgrade head
+
 ## Các package sử dụng để kết nối với database
 
 - sqlalchemy: Là ORM (Object-Relational Mapping) cho phép bạn làm việc với cơ sở dữ liệu SQL một cách trừu tượng, không cần viết SQL thủ công.

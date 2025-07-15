@@ -2,7 +2,7 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta,timezone
 import jwt
 import os
-from fastapi import HTTPException, status
+from fastapi import HTTPException
 from jwt import ExpiredSignatureError, InvalidTokenError
 
 ALGORITHM = "HS256"

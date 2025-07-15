@@ -33,8 +33,10 @@ Thumbs.db
 poetry.lock
 
 # alembic
+# ❌ Không ignore alembic!
+# ✅ Nhưng ignore các file tạm
+alembic/versions/__pycache__/
 alembic.ini
-migrations/
 
 # mypy / pyright / pytest / coverage
 .mypy_cache/
