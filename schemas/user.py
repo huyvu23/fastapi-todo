@@ -1,14 +1,14 @@
 # Defines Pydantic models for request validation and response serialization.
-from pydantic import BaseModel
+from pydantic import BaseModel,Field
 from datetime import datetime
 
 class UserLogin(BaseModel):
-    username:str
+    username:str = Field(min_length=5,max_length=50)
     password: str
 
 # Schema để đọc dữ liệu người dùng (ví dụ: trả về từ API)
 class UserBase(BaseModel):
-    username: str
+    username: str = Field(min_length=5,max_length=50)
     email: str
 
 # Schema để tạo người dùng mới (POST request)

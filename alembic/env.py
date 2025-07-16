@@ -11,8 +11,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Import Base từ models của bạn
 from db.session import Base
-from models.todo import Todo
-from models.user import User
+from models import Todo,User
 # Alembic config object
 config = context.config
 

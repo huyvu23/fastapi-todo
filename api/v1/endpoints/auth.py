@@ -1,11 +1,11 @@
 from fastapi import APIRouter
-from schemas import UserLogin,UserCreate,InformationUserLogin
+from schemas import UserLogin,UserCreate,InformationUserLogin,UserRead
 from services import verify_user_login,create_user
 from db.deps import SessionDep
 
 router = APIRouter()
 
-@router.post("/register",response_model=UserCreate)
+@router.post("/register",response_model=UserRead)
 def register_user(user: UserCreate,db: SessionDep):
     return create_user(user,db)
 
