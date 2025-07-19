@@ -1,4 +1,4 @@
-from fastapi import APIRouter,Request,HTTPException
+from fastapi import APIRouter,Request
 from schemas import TodoCreate,TodoResponse
 from services import create_new_todo,get_all_todo as get_all_todo_service
 from db.deps import SessionDep

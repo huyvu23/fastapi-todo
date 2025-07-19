@@ -80,14 +80,13 @@ def get_users(db:Session) -> list[UserCreate]:
     except Exception as e:
         print('e:',e)
 
-def verify_user_login(db: Session, login_data: UserLogin) -> InformationUserLogin | None:
-    try:
+def verify_user_login(db: Session, login_data: UserLogin):
         user = db.query(User).filter(User.username == login_data.username).first()
         if not user:
-            raise HTTPException(status_code=400, detail="Invalid username or password")
+            raise HTTPException(status_code=401, detail="Invalid username or password")
 
         if not verify_password(login_data.password, user.password):
-            raise HTTPException(status_code=400, detail="Invalid password")
+            raise HTTPException(status_code=401, detail="Invalid password")
         
         # user.__dict__: Lấy toàn bộ field từ đối tượng SQLAlchemy.
         # .copy(): Tạo bản sao, tránh thay đổi gốc.
@@ -103,7 +102,6 @@ def verify_user_login(db: Session, login_data: UserLogin) -> InformationUserLogi
         # Add token
         user_dict["access_token"] = access_token
         return user_dict
-    except Exception as e:
-        print('e:',e)
+
 
     

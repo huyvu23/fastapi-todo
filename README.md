@@ -53,6 +53,10 @@ Lưu ý: Python 2 đã ngừng hỗ trợ chính thức từ tháng 1 năm 2020,
 - Transaction Control : Hỗ trợ rollback/Commit đúng cách
 - Best Practice : Theo đúng kiến trúc RESTful và Fast API chuẩn
 
+## Chạy test từ thư mục gốc của project (fastapi-todo) bằng lệnh sau
+
+- PYTHONPATH=. pytest
+
 ## CONNECT DB
 
 - DATABASE_URI = 'postgresql://postgres:<password>@localhost/<name_of_the_datbase>'
